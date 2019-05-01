@@ -1,0 +1,87 @@
+{
+    "signal_data":[
+        {
+            "comment":"300 lx，2700 K",
+            "illuminance":300,
+            "temperature":2700,
+            "red":80,
+            "green":3,
+            "blue":3,
+            "yellow":110
+        },
+        {
+            "comment":"300 lx，4500 K",
+            "illuminance":300,
+            "temperature":4500,
+            "red":55,
+            "green":21,
+            "blue":18,
+            "yellow":105
+        },
+        {
+            "comment":"300 lx，6000 K",
+            "illuminance":300,
+            "temperature":6000,
+            "red":78,
+            "green":37,
+            "blue":34,
+            "yellow":85
+        },
+        {
+            "comment":"500 lx，2700 K",
+            "illuminance":500,
+            "temperature":2700,
+            "red":135,
+            "green":4,
+            "blue":4,
+            "yellow":185
+        },
+        {
+            "comment":"500 lx，4500 K",
+            "illuminance":500,
+            "temperature":4500,
+            "red":80,
+            "green":34,
+            "blue":30,
+            "yellow":185
+        },
+        {
+            "comment":"500 lx，6000 K",
+            "illuminance":500,
+            "temperature":6000,
+            "red":124,
+            "green":61,
+            "blue":57,
+            "yellow":151
+        },
+        {
+            "comment":"700 lx，2700 K",
+            "illuminance":700,
+            "temperature":2700,
+            "red":200,
+            "green":6,
+            "blue":6,
+            "yellow":250
+        },
+        {
+            "comment":"700 lx，4500 K",
+            "illuminance":700,
+            "temperature":4500,
+            "red":100,
+            "green":46,
+            "blue":40,
+            "yellow":260
+        },
+        {
+            "comment":"700 lx，6000 K",
+            "illuminance":700,
+            "temperature":6000,
+            "red":162,
+            "green":82,
+            "blue":76,
+            "yellow":202
+        }
+
+    ]
+    
+}

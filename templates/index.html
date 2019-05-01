@@ -1,0 +1,96 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html>
+<header>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <title>ECG Lighting Server</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</header>
+<!-- 検証用なので雑 -->
+
+<body>
+    <div id="title">echo {{word}}</div>
+    <div id="URL">URL {{url}}</div>
+    <div id="Interval">Interval {{interval}}</div>
+    <div id="PreCVRR">PreCVRR {{preCVRR}}</div>
+    <div id="NowCVRR">NowCVRR {{nowCVRR}}</div>
+
+    <div id="PreTIME">PreTIME {{pretime}}</div>
+    <div id="NowTIME">NowTIME {{nowtime}}</div>
+
+    <input type="button" id="sample" value="送信">
+    <!-- <script type="text/javascript" src="/static/js/test.js"></script> -->
+    <!-- <script src="../static/js/update.js"></script> -->
+    <!-- <script>
+        var urltext = "ws://192.168.1.58:8000/ws";
+        console.log("url:",urltext);
+        var sock = new WebSocket(urltext);
+        // await.sleep(5000);
+
+        // 接続
+        sock.addEventListener('open',function(e){
+            console.log('Socket 接続成功');
+        });
+
+        // サーバーからデータを受け取る
+        sock.addEventListener('message',function(e){
+            var res = JSON.parse(e.data);
+            console.log(res);
+            document.getElementById('title').innerText=res.word;
+        });
+
+        document.addEventListener('DOMContentLoaded',function(e){
+            // サーバーにデータを送る
+            document.getElementById('sample').addEventListener('click',function(e){
+                sock.send('Webの表示を更新します');
+            });
+        });
+    </script>
+
+    <script>
+        $(function () {
+            var POLLLING_INVERVAL_TIME_IN_MILLIS = 5000;//mSeconds
+            (function polling() {
+                connectWebScoket();
+                window.setTimeout(polling, POLLLING_INVERVAL_TIME_IN_MILLIS);
+                //console.log(req.body[0].smell);
+            }());
+
+            function connectWebScoket() {
+                var urltext = "ws://192.168.1.58:8000/ws";
+                console.log("url:", urltext);
+                var sock = new WebSocket(urltext);
+                // await.sleep(5000);
+
+                // 接続
+                sock.addEventListener('open', function (e) {
+                    console.log('Socket 接続成功');
+                });
+
+                // サーバーにデータを送る
+                sock.onopen=function(event){
+                    sock.send('Webの表示を更新します');
+                }
+
+                // サーバーからデータを受け取る
+                sock.addEventListener('message', function (e) {
+                    var res = JSON.parse(e.data);
+                    console.log(res);
+                    document.getElementById('title').innerText = res.word;
+                    document.getElementById('NowTIME').innerText = "NowTIME:"+res.nowtime;
+                    document.getElementById('PreTIME').innerText = "PreTIME:"+res.pretime;
+                    document.getElementById('NowCVRR').innerText = "NowCVRR:"+res.nowcvrr;
+                    document.getElementById('PreCVRR').innerText = "PreCVRR:"+res.precvrr;
+
+                });
+
+                document.addEventListener('DOMContentLoaded', function (e) {
+                    // // サーバーにデータを送る
+                    //     sock.send('Webの表示を更新します');
+                });
+            }
+        }); 
+    </script>-->
+</body>
+</html>
