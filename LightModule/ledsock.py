@@ -8,7 +8,8 @@ class LedSocket:
             self.sock = sock
 
     def connect(self):
-        self.sock.connect(('172.20.11.68', 14649))
+#         IPを隠してる
+        self.sock.connect(('IPAddress', PORT))
 
     def close(self):
         self.sock.close()
