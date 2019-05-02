@@ -1,4 +1,5 @@
-import json,random,socket
+import json,random,socket,os
+from pathlib import Path
 import responder
 from datetime import datetime as dt
 
@@ -6,7 +7,14 @@ from CalcModule.calculater import *
 from CalcModule.termManager import *
 from FileModule.fileManager import *
 
-api = responder.API()
+def parentdir(path='.', layer=0):
+    return Path(path).resolve().parents[layer]
+
+BASE_DIR = parentdir(__file__,1)
+
+api = responder.API(
+    static_dir=str(BASE_DIR.joinpath('static')),
+)
 
 myport = 8000
 
@@ -30,7 +38,7 @@ class server:
         ''' GET '''
         # 一応こっちからURLを渡してみる（今のところ上手くいってなくてhtmlで直打ち）
         url="ws://"+getIp()+":"+str(myport)
-        res.content = api.template("index.html", word="test",url=url,interval = self.interval,preCVRR = server.pre_cvrr,nowCVRR = "未計測",pretime=server.pre_time,static=True)
+        res.content = api.template("index.html", word="test",url=url,interval = self.interval,preCVRR = server.pre_cvrr,nowCVRR = "未計測",pretime=server.pre_time)
 
     async def on_post(self, req, resp):
         ''' POST '''
@@ -91,7 +99,7 @@ def getIp():
     
 # routing
 # mainのHTTPメソッド
-api.add_route("/", server,static=True)
+api.add_route("/", server)
 # @api.add_route("/",static=True)
 # endpointを変えてwebsocket用に開放している？
 @api.route("/ws", websocket=True)
@@ -112,6 +120,7 @@ async def websocket(ws):
         # await ws.send_text(f"Hello!Client")
         await ws.send_json(body)
     await ws.close()
+
 
 if __name__ == '__main__':
     api.run(address=getIp(), port=myport)

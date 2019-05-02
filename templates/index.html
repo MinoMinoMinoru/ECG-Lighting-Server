@@ -2,12 +2,12 @@
 <!DOCTYPE html>
 <html>
 <header>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" href="../static/css/style.css">
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+    <!-- <link href="/static/css/style.css" rel="stylesheet" type="text/css" media="all"> -->
+    <link href="/css/style.css" rel="stylesheet" type="text/css" media="all">
     <title>ECG Lighting Server</title>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </header>
-<!-- 検証用なので雑 -->
 
 <body>
     <div id="title">echo {{word}}</div>
@@ -20,7 +20,7 @@
     <div id="NowTIME">NowTIME {{nowtime}}</div>
 
     <input type="button" id="sample" value="送信">
-    <!-- <script type="text/javascript" src="/static/js/test.js"></script> -->
+    <script type="text/javascript" src="./js/test.js"></script>
     <!-- <script src="../static/js/update.js"></script> -->
     <!-- <script>
         var urltext = "ws://192.168.1.58:8000/ws";
