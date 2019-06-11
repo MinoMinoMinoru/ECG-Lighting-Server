@@ -1,7 +1,8 @@
 import sys
-sys.path.append('../LightModule')
+sys.path.append('./LightModule')
 # print(sys.path)
-from LightModule.lightingFunction import *
+
+from lightingFunction import *
 
 # from fileManager import *
 

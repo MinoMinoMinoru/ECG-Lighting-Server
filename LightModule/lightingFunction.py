@@ -1,19 +1,21 @@
 import json,random
 from datetime import datetime as dt
 
-from .ledsock import *
+from ledsock import *
 import sys
 sys.path.append('../FileModule')
-from FileModule.fileManager import *
+sys.path.append('../LightModule')
+print(sys.path)
+from fileManager import *
 
 illList =[]
 tempList=[]
 # 照度，色温度の段階
-ill_MAX =4
-temp_MAX =7
+ill_MAX =5
+temp_MAX =8
 
 def lighting(signal):
-    ''' test用に急繕ったもの'''
+    ''' test用に急繕ったもの '''
     s = LedSocket()
     s.connect()
     s.sendAll(signal)
@@ -33,7 +35,7 @@ def setLightingArray():
     return 0
 
 def upIlluminance(curentIll):
-    ''' 照度を１段階上げる'''
+    ''' 照度を１段階上げる '''
     # 上限を超えなければみたいな処理
     if curentIll < ill_MAX:
         nextIll = curentIll + 1
@@ -43,7 +45,7 @@ def upIlluminance(curentIll):
     return nextIll
 
 def downIlluminance(curentIll):
-    ''' 照度を１段階下げる'''
+    ''' 照度を１段階下げる '''
     if curentIll > 0:
         nextIll = curentIll - 1
     else:
@@ -52,7 +54,7 @@ def downIlluminance(curentIll):
     return nextIll
 
 def upTemp(curentTmep):
-    ''' 色温度を１段階上げる'''
+    ''' 色温度を１段階上げる '''
     if curentTmep < temp_MAX:
         nextTemp = curentTmep + 1
     else:
@@ -61,7 +63,7 @@ def upTemp(curentTmep):
     return nextTemp
 
 def downTemp(curentTmep):
-    ''' 色温度を１段階下げる'''
+    ''' 色温度を１段階下げる '''
     if curentTmep > 0:
         nextTemp = curentTmep - 1
     else:
@@ -75,7 +77,8 @@ def getSignal(ill_index,temp_index):
     # print(sys.path)
     # 呼び出し元からの相対Pathが必要?
     # 絶対Pathかも？？？
-    f = open('./LightModule/signal40.json', 'r',encoding="utf-8")
+    f = open('signal40.json', 'r',encoding="utf-8")
+    # f = open('./LightModule/signal40.json', 'r',encoding="utf-8")
     get_data = json.load(f)
     f.close()
     get_data=get_data[str(ill_index)][temp_index]

@@ -1,11 +1,12 @@
-import json,random,socket,os
+import json,random,socket,os,requests
 from pathlib import Path
 import responder
 from datetime import datetime as dt
+from pyfiglet import Figlet
 
 from CalcModule.calculater import *
 from CalcModule.termManager import *
-from FileModule.fileManager import *
+# from FileModule.fileManager import *
 
 def parentdir(path='.', layer=0):
     return Path(path).resolve().parents[layer]
@@ -29,6 +30,8 @@ class server:
     pre_cvrr, now_cvrr = 0, 0
     # csvに保存する際に誰のかを判断する用
     name =""
+    # 照明制御に利用
+    update_count=0
 
     # 出力file
     rri_file = "RRI_Log.csv"
@@ -38,7 +41,7 @@ class server:
         ''' GET '''
         # 一応こっちからURLを渡してみる（今のところ上手くいってなくてhtmlで直打ち）
         url="ws://"+getIp()+":"+str(myport)
-        res.content = api.template("index.html", word="test",url=url,interval = self.interval,preCVRR = server.pre_cvrr,nowCVRR = "未計測",pretime=server.pre_time)
+        res.content = api.template("index.html", word="test",url=url,interval = self.interval,preCVRR = server.pre_cvrr,nowCVRR = "未計測",pretime=server.pre_time,static = True)
 
     async def on_post(self, req, resp):
         ''' POST '''
@@ -47,22 +50,31 @@ class server:
             ''' CVRRの判定 '''
             print("【pre_cvrr】",server.pre_cvrr)
             print("【now_cvrr】",server.now_cvrr)
+            # font用
+            f = Figlet(font="slant")
+
             # CVRRが以前のものよりも上昇している場合
             if self.now_cvrr>server.pre_cvrr:
-                print("--- Up ---")
+                
+                msg = f.renderText("UP↑ CVRR")
+                print(msg)
             # CVRRが以前のものよりも下降している場合
             else:
-                print("--- Down ---")
-            
+                msg = f.renderText("DOWN↓ CVRR")
+                print(msg)
 
         async def update():
             ''' 経過時間の判定とその場合の処理 '''
             # print("now",self.now_time, " - pre",self.pre_time,"sub",str(getTime(self.now_time)-getTime(self.pre_time)))
             if(getTime(server.now_time)-getTime(server.pre_time) >= server.interval):
                 print("--- Server Update ---")
-                # cvrrの更新
+                # updateの回数を更新
+                server.update_count+=1
+                
+                # cvrrの更新・追加
                 server.pre_cvrr = server.now_cvrr
                 server.now_cvrr = getCVRR(server.term_rri)
+                
                 server.all_cvrr.append(getCVRR(server.term_rri))
                 print(server.all_cvrr)
                 # CVRRの判定
@@ -97,10 +109,9 @@ def getIp():
     print("------")
     return ip
     
-# routing
+""" routing """
 # mainのHTTPメソッド
-api.add_route("/", server)
-# @api.add_route("/",static=True)
+api.add_route("/", server,static=True)
 # endpointを変えてwebsocket用に開放している？
 @api.route("/ws", websocket=True)
 async def websocket(ws):
@@ -121,6 +132,14 @@ async def websocket(ws):
         await ws.send_json(body)
     await ws.close()
 
+# @api.route("/upload")
+# async def upload_file(req, resp):
+#     @api.background.task
+#     def process_data(data):
+#         file=data['file']
+#         f = open('./{}'.format(data['file']['filename']), 'wb')
+#         f.write(file['content'])
+#         f.close()
 
 if __name__ == '__main__':
     api.run(address=getIp(), port=myport)
