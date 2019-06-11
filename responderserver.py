@@ -50,17 +50,16 @@ class server:
             ''' CVRRの判定 '''
             print("【pre_cvrr】",server.pre_cvrr)
             print("【now_cvrr】",server.now_cvrr)
-            # font用
-            f = Figlet(font="slant")
 
             # CVRRが以前のものよりも上昇している場合
             if self.now_cvrr>server.pre_cvrr:
-                
-                msg = f.renderText("UP↑ CVRR")
+                f = Figlet(font="slant")
+                msg = f.renderText("UP CVRR")
                 print(msg)
             # CVRRが以前のものよりも下降している場合
             else:
-                msg = f.renderText("DOWN↓ CVRR")
+                f = Figlet(font="slant")
+                msg = f.renderText("DOWN CVRR")
                 print(msg)
 
         async def update():
@@ -76,7 +75,7 @@ class server:
                 server.now_cvrr = getCVRR(server.term_rri)
                 
                 server.all_cvrr.append(getCVRR(server.term_rri))
-                print(server.all_cvrr)
+                print("【all_cvrr】",server.all_cvrr)
                 # CVRRの判定
                 await judgeCVRR()
                 # serverの "クラス変数" である pre_time を更新

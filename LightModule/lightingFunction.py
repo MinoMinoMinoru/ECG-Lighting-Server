@@ -1,18 +1,18 @@
 import json,random
 from datetime import datetime as dt
 
-from ledsock import *
+from .ledsock import *
 import sys
-sys.path.append('../FileModule')
-sys.path.append('../LightModule')
-print(sys.path)
-from fileManager import *
+# sys.path.append('../FileModule')
+# sys.path.append('../LightModule')
+# print(sys.path)
+# from fileManager import *
 
 illList =[]
 tempList=[]
 # 照度，色温度の段階
-ill_MAX =5
-temp_MAX =8
+ill_MAX =4
+temp_MAX =7
 
 def lighting(signal):
     ''' test用に急繕ったもの '''
