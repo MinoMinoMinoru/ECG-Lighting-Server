@@ -1,33 +1,26 @@
 """ 
 cvrrをもとに，次の調光命令を管理する（予定）
 """
+import random
+
 from LightModule.lightingFunction import *
 
-def order(changenum,currentIll,currentTemp,pre_cvrr,cvrr):
-    ''' 試行回数が n回以下なら照度を，以上なら色温度を変更 '''
-    # いずれの場合も返り値は照度と色温度のindex
-    if changenum>0:
-        return 0
-    else:
-        return 0
+def chengeLight(ill_index,temp_index,name):
+    light_sig,ill,temp = getSignal(ill_index,temp_index)
+    # lighting_by_signal(light_sig)
+    return 0
 
-def orderIllminance(pre_order,pre_cvrr,cvrr,currentIll):
-    ''' 照度を変更する命令 '''
-    order_list = ["up","down"]
-    if pre_cvrr > cvrr:
-        # 条件一致とかの分岐が必要?
-        # 一回テキトーに埋めとく
-        upIlluminance(currentIll)
-    else:
-        order = pre_order
-    return order
+def randomChange(now_ill,now_temp):
+    """ ランダムで照度・色温度を変更 """
+    next_ill,next_temp = now_ill,now_temp
+    walkflag = random.randint(0,3)
 
-def orderTemp(pre_order,pre_cvrr,cvrr,currentTemp):
-    ''' 色温度を変更する命令 '''
-    order_list = ["up","down"]
-    if pre_cvrr > cvrr:
-        # 一回テキトーに埋めとく
-        order = order_list[0]
+    if walkflag==0:
+        next_ill = upIlluminance(now_ill)
+    elif walkflag==1:
+        next_ill = downIlluminance(now_ill)
+    elif walkflag==2:
+        next_temp = upTemp(now_temp)
     else:
-        order = pre_order
-    return order
+        next_temp = downTemp(now_temp)
+    return next_ill,next_temp

@@ -7,7 +7,7 @@ from pyfiglet import Figlet
 from CalcModule.calculater import *
 from CalcModule.termManager import *
 from LightModule.lightingFunction import *
-# from FileModule.fileManager import *
+from LightModule.orderManager import *
 
 def parentdir(path='.', layer=0):
     return Path(path).resolve().parents[layer]
@@ -21,24 +21,30 @@ api = responder.API(
 myport = 8000
 
 class server:
-    # RRIと取得時間
-    term_time,term_rri = [],[]
     # 処理をするまでの間隔(second)
     interval = 10
-    # 時間周り
+    # RRIと取得時間
+    term_time,term_rri = [],[]
     pre_time, now_time = dt.now().strftime("%H:%M:%S"), 0
     all_cvrr =[]
     pre_cvrr, now_cvrr = 0, 0
-    # csvに保存する際に誰のRRIかを判断する用
+    # csvに保存する際に誰のRRI,lightingかを判断する用
     name =""
     # 照明制御に利用
-    now_ill,now_temp=0,0
-    pre_ill,pre_temp=0,0
+    lighting_signal=[]
+    now_ill_index,now_temp_index=0,0
+    pre_ill_index,pre_temp_index=0,0
+    # 実際の照度・色温度
+    illuminance,temperature=0,0
+    # CVRRの算出回数と最大回数（終了条件）
     update_count=0
+    loop_max=10
+
 
     # 出力file
     rri_file = "RRI_Log.csv"
     cvrr_file = "CVRR_Log.csv"
+    lighting_file = "Lighting_Log.csv"
 
     def on_get(self, req, res):
         ''' GET '''
@@ -48,23 +54,34 @@ class server:
 
     async def on_post(self, req, resp):
         ''' POST '''
-        # 調光アルゴリズム入れるならこのメソッド？
         async def judgeCVRR():
-            ''' CVRRの判定 '''
+            ''' CVRRの判定と調光信号値の決定 '''
             print("【all_cvrr】",server.all_cvrr)
             print("【pre_cvrr】",server.pre_cvrr)
             print("【now_cvrr】",server.now_cvrr)
 
             # CVRRが以前のものよりも上昇している場合
             if self.now_cvrr>server.pre_cvrr:
+                ''' Randomに調光 '''
                 fig = Figlet(font="slant")
                 msg = fig.renderText("UP CVRR")
                 print(msg)
+                print("照明環境を変更します")
+                server.now_ill_index, server.now_temp_index = randomChange(server.now_ill_index, server.now_temp_index)
+                
             # CVRRが以前のものよりも下降している場合
             else:
+                ''' 前の照明環境に戻す '''
                 fig = Figlet(font="slant")
                 msg = fig.renderText("DOWN CVRR")
                 print(msg)
+                print("前の照明環境に戻します")
+                server.now_ill_index,server.now_temp_index = server.pre_ill_index,server.pre_temp_index
+            
+            # 調光信号値，実際の照度，色温度の取得
+            self.lighting_signal,server.illuminance,server.temperature=getSignal(server.now_ill_index, server.now_temp_index)
+            # 調光のindexを残す
+            server.pre_ill_index,server.pre_temp_index = server.now_ill_index,server.now_temp_index
 
         async def update():
             ''' 経過時間の判定とその場合の処理 '''
@@ -78,21 +95,28 @@ class server:
                 server.now_cvrr = getCVRR(server.term_rri)
                 server.all_cvrr.append(getCVRR(server.term_rri))
 
-                # CVRRの判定
+                # CVRRの判定+調光信号値の変更
                 await judgeCVRR()
+
+                # ここで調光する
+                # lighting_by_signal(self.lighting_signal)  
 
                 # serverの "クラス変数" である pre_time を更新
                 server.pre_time = dt.now().strftime("%H:%M:%S")
 
-                # output
+                # output csv
                 outputRRI(server.term_time,server.term_rri,server.name+"_"+server.rri_file)
-                outputCVRR(server.now_time,server.now_cvrr,server.name+"_"+server.cvrr_file)
+                outputCVRR(server.update_count,server.now_time,server.now_cvrr,server.name+"_"+server.cvrr_file)
+                outputLighting(server.update_count,server.now_time,server.illuminance,server.temperature,server.name+"_"+server.lighting_file)
                 
                 # termに依存する変数を初期化
                 server.term_time.clear()
                 server.term_rri.clear()
 
-                print("update_count",update_count)
+                # if server.update_count==server.loop_max:
+                #     break
+
+                print("update_count",server.update_count)
 
         ''' ここからPOSTの処理 '''
         data = await req.media()
@@ -138,15 +162,6 @@ async def websocket(ws):
         # await ws.send_text(f"Hello!Client")
         await ws.send_json(body)
     await ws.close()
-
-# @api.route("/upload")
-# async def upload_file(req, resp):
-#     @api.background.task
-#     def process_data(data):
-#         file=data['file']
-#         f = open('./{}'.format(data['file']['filename']), 'wb')
-#         f.write(file['content'])
-#         f.close()
 
 if __name__ == '__main__':
     api.run(address=getIp(), port=myport)

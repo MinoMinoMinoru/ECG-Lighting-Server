@@ -17,7 +17,7 @@ def outputRRI(time,rri,filename):
     output_text = makeRRILogTExt(time,rri)
     outputFile(output_text, filename)
 
-def outputCVRR(time,cvrr,filename):
+def outputCVRR(count,time,cvrr,filename):
     ''' CVRRをcsvに出力 '''
-    output_text = str(time) + "," + str(cvrr) + '\n'
+    output_text = str(count) + "," +str(time) + "," + str(cvrr) + '\n'
     outputFile(output_text, filename)

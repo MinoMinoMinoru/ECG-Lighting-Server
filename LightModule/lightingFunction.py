@@ -3,10 +3,8 @@ from datetime import datetime as dt
 
 from .ledsock import *
 import sys
-# sys.path.append('../FileModule')
-# sys.path.append('../LightModule')
-# print(sys.path)
-# from fileManager import *
+sys.path.append('../FileModule')
+from FileModule.fileManager import *
 
 illList =[]
 tempList=[]
@@ -14,7 +12,7 @@ tempList=[]
 ill_MAX =4
 temp_MAX =7
 
-def lighting(signal):
+def lighting_by_signal(signal):
     ''' test用に急繕ったもの '''
     s = LedSocket()
     s.connect()
@@ -28,11 +26,6 @@ def testSend(red,green,blue,yellow):
     test_signal=[red,green,blue,yellow]
     s.sendAll(test_signal)
     s.close()
-
-def setLightingArray():
-    ''' 2重配列に調光信号を入れる '''
-    # [ill][temp]みたいな配列で信号値を整理したい
-    return 0
 
 def upIlluminance(curentIll):
     ''' 照度を１段階上げる '''
@@ -71,14 +64,16 @@ def downTemp(curentTmep):
         print("色温度はこれ以上小さくなりません")
     return nextTemp
 
+def outputLighting(count,time,ill,temp,filename):
+    ''' 調光のログを書く '''
+    output_text = str(count) + "," + str(time) + "," + str(ill) + "," + str(temp) + '\n'
+    outputFile(output_text, filename)
+
 def getSignal(ill_index,temp_index):
     ''' jsonファイルから信号値を設定 '''
     signal =[]
-    # print(sys.path)
-    # 呼び出し元からの相対Pathが必要?
-    # 絶対Pathかも？？？
-    f = open('signal40.json', 'r',encoding="utf-8")
-    # f = open('./LightModule/signal40.json', 'r',encoding="utf-8")
+    # f = open('signal40.json', 'r',encoding="utf-8")
+    f = open('./LightModule/signal40.json', 'r',encoding="utf-8")
     get_data = json.load(f)
     f.close()
     get_data=get_data[str(ill_index)][temp_index]
