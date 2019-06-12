@@ -5,7 +5,7 @@ from datetime import datetime as dt
 from CalcModule.calculater import *
 from CalcModule.termManager import *
 from FileModule.fileManager import *
-from WebPage.display import *
+from LightModule.lightingFunction import *
 
 class MainServer(object):
     term_time = []
