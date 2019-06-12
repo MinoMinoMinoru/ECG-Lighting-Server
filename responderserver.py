@@ -92,6 +92,8 @@ class server:
                 server.term_time.clear()
                 server.term_rri.clear()
 
+                print("update_count",update_count)
+
         ''' ここからPOSTの処理 '''
         data = await req.media()
         server.now_time = dt.now().strftime("%H:%M:%S")

@@ -13,7 +13,6 @@
 # Program
 ## server
 - responder:こっち！
-- falconserver:試験的なもの．websocketがなくて，htmlへの表示で難があり変更した
 
 ## FileModule:csvの出力関連
 - filemanager:file出力関連のfunction.出力したいものごとにメソッドを作ってる()
