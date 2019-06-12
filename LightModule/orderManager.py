@@ -5,16 +5,12 @@ import random
 
 from LightModule.lightingFunction import *
 
-def chengeLight(ill_index,temp_index,name):
-    light_sig,ill,temp = getSignal(ill_index,temp_index)
-    # lighting_by_signal(light_sig)
-    return 0
-
 def randomChange(now_ill,now_temp):
     """ ランダムで照度・色温度を変更 """
     next_ill,next_temp = now_ill,now_temp
-    walkflag = random.randint(0,3)
-
+    order_list=["up_ill","down_ill","up_temp","down_temp"]
+    walkflag = random.randint(0,len(order_list)-1)
+    order=order_list[walkflag]
     if walkflag==0:
         next_ill = upIlluminance(now_ill)
     elif walkflag==1:

@@ -113,9 +113,6 @@ class server:
                 server.term_time.clear()
                 server.term_rri.clear()
 
-                # if server.update_count==server.loop_max:
-                #     break
-
                 print("update_count",server.update_count)
 
         ''' ここからPOSTの処理 '''
