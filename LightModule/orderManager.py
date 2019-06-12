@@ -5,18 +5,34 @@ import random
 
 from LightModule.lightingFunction import *
 
+ill_MAX =4
+temp_MAX =7
+
 def randomChange(now_ill,now_temp):
     """ ランダムで照度・色温度を変更 """
     next_ill,next_temp = now_ill,now_temp
     order_list=["up_ill","down_ill","up_temp","down_temp"]
+    
+    # 絶対に照明が変わるようにする
+    if now_ill == ill_MAX:
+        order_list.remove("up_ill")
+    elif now_ill == 0:
+        order_list.remove("down_ill")
+    if now_temp == temp_MAX:
+        order_list.remove("up_temp")
+    elif now_temp == 0:
+        order_list.remove("down_temp")
+
     walkflag = random.randint(0,len(order_list)-1)
     order=order_list[walkflag]
-    if walkflag==0:
+
+    if order=="up_ill":
         next_ill = upIlluminance(now_ill)
-    elif walkflag==1:
+    elif order=="down_ill":
         next_ill = downIlluminance(now_ill)
-    elif walkflag==2:
+    elif order=="up_temp":
         next_temp = upTemp(now_temp)
-    else:
+    elif order=="down_temp":
         next_temp = downTemp(now_temp)
+    
     return next_ill,next_temp
