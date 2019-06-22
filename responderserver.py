@@ -34,17 +34,21 @@ class server:
     lighting_signal=[]
     now_ill_index,now_temp_index=0,0
     pre_ill_index,pre_temp_index=0,0
+    ill_index,temp_index=0,0
     # 実際の照度・色温度
     illuminance,temperature=0,0
     # CVRRの算出回数と最大回数（終了条件）
     update_count=0
     loop_max=10
 
-
     # 出力file
     rri_file = "RRI_Log.csv"
     cvrr_file = "CVRR_Log.csv"
     lighting_file = "Lighting_Log.csv"
+
+    lighting_signal,illuminance,temperature=getSignal(ill_index, temp_index)
+    # 調光
+    lighting_by_signal(lighting_signal)
 
     def on_get(self, req, res):
         ''' GET '''
@@ -56,9 +60,9 @@ class server:
         ''' POST '''
         async def judgeCVRR():
             ''' CVRRの判定と調光信号値の決定 '''
-            print("【all_cvrr】",server.all_cvrr)
-            print("【pre_cvrr】",server.pre_cvrr)
-            print("【now_cvrr】",server.now_cvrr)
+            # print("【all_cvrr】",server.all_cvrr)
+            # print("【pre_cvrr】",server.pre_cvrr)
+            # print("【now_cvrr】",server.now_cvrr)
 
             # CVRRが以前のものよりも上昇している場合
             if self.now_cvrr>server.pre_cvrr:
@@ -67,7 +71,8 @@ class server:
                 msg = fig.renderText("UP CVRR")
                 print(msg)
                 print("照明環境を変更します")
-                server.now_ill_index, server.now_temp_index = randomChange(server.now_ill_index, server.now_temp_index)
+                # 調光のindexを残す
+                self.ill_index, self.temp_index = randomChange(server.ill_index, server.temp_index)
                 
             # CVRRが以前のものよりも下降している場合
             else:
@@ -76,12 +81,20 @@ class server:
                 msg = fig.renderText("DOWN CVRR")
                 print(msg)
                 print("前の照明環境に戻します")
-                server.now_ill_index,server.now_temp_index = server.pre_ill_index,server.pre_temp_index
-            
+                print("server_index:("+str(server.ill_index)+","+str(server.temp_index)+")")
+                # server.ill_index,server.temp_index = self.ill_index,self.temp_index
+                self.ill_index, self.temp_index = server.ill_index, server.temp_index
+            print("===")
+            print("server_index:("+str(server.ill_index)+","+str(server.temp_index)+")")
+            print("self_index:("+str(self.ill_index)+","+str(self.temp_index)+")")
+            print("===")
+
+            server.ill_index,server.temp_index = self.ill_index,self.temp_index            
             # 調光信号値，実際の照度，色温度の取得
-            self.lighting_signal,server.illuminance,server.temperature=getSignal(server.now_ill_index, server.now_temp_index)
-            # 調光のindexを残す
-            server.pre_ill_index,server.pre_temp_index = server.now_ill_index,server.now_temp_index
+            self.lighting_signal,server.illuminance,server.temperature=getSignal(self.ill_index, self.temp_index)
+            # 調光
+            lighting_by_signal(self.lighting_signal)
+            
 
         async def update():
             ''' 経過時間の判定とその場合の処理 '''
@@ -97,9 +110,6 @@ class server:
 
                 # CVRRの判定+調光信号値の変更
                 await judgeCVRR()
-
-                # ここで調光する
-                # lighting_by_signal(self.lighting_signal)  
 
                 # serverの "クラス変数" である pre_time を更新
                 server.pre_time = dt.now().strftime("%H:%M:%S")

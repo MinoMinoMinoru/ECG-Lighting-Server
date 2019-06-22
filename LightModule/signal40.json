@@ -4,73 +4,73 @@
             "comment": "300 lx，2700 K",
             "illuminance": 300,
             "temperature": 2700,
-            "red": 80,
-            "green": 3,
-            "blue": 3,
-            "yellow": 110
+            "red": 105,
+            "green": 7,
+            "blue": 7,
+            "yellow": 100
         },
         {
             "comment": "300 lx，3000 K",
             "illuminance": 300,
             "temperature": 3000,
-            "red": 65,
-            "green": 4,
-            "blue": 4,
-            "yellow": 115
+            "red": 105,
+            "green": 14,
+            "blue": 14,
+            "yellow": 100
         },
         {
             "comment": "300 lx，3500 K",
             "illuminance": 300,
             "temperature": 3500,
-            "red": 67,
-            "green": 12,
-            "blue": 9,
-            "yellow": 105
+            "red": 105,
+            "green": 22,
+            "blue": 22,
+            "yellow": 100
         },
         {
             "comment": "300 lx，4000 K",
             "illuminance": 300,
             "temperature": 4000,
-            "red": 65,
-            "green": 15,
-            "blue": 15,
-            "yellow": 102
+            "red": 105,
+            "green": 28,
+            "blue": 28,
+            "yellow": 100
         },
         {
             "comment": "300 lx，4500 K",
             "illuminance": 300,
             "temperature": 4500,
-            "red": 55,
-            "green": 21,
-            "blue": 18,
-            "yellow": 105
+            "red": 105,
+            "green": 34,
+            "blue": 34,
+            "yellow": 90
         },
         {
             "comment": "300 lx，5000 K",
             "illuminance": 300,
             "temperature": 5000,
             "red": 65,
-            "green": 30,
-            "blue": 25,
+            "green": 28,
+            "blue": 28,
             "yellow": 100
         },
         {
             "comment": "300 lx，5500 K",
             "illuminance": 300,
             "temperature": 5500,
-            "red": 78,
+            "red": 77,
             "green": 35,
-            "blue": 30,
-            "yellow": 90
+            "blue": 35,
+            "yellow": 95
         },
         {
             "comment": "300 lx，6000 K",
             "illuminance": 300,
             "temperature": 6000,
             "red": 78,
-            "green": 37,
-            "blue": 34,
-            "yellow": 85
+            "green": 36,
+            "blue": 36,
+            "yellow": 87
         }
     ],
     "1": [
@@ -78,10 +78,10 @@
             "comment": "400 lx，2700 K",
             "illuminance": 400,
             "temperature": 2700,
-            "red": 145,
+            "red": 144,
             "green": 10,
             "blue": 10,
-            "yellow": 130
+            "yellow": 140
         },
         {
             "comment": "400 lx，3000 K",
@@ -97,8 +97,8 @@
             "illuminance": 400,
             "temperature": 3500,
             "red": 135,
-            "green": 27,
-            "blue": 27,
+            "green": 30,
+            "blue": 30,
             "yellow": 125
         },
         {
@@ -106,8 +106,8 @@
             "illuminance": 400,
             "temperature": 4000,
             "red": 135,
-            "green": 35,
-            "blue": 35,
+            "green": 38,
+            "blue": 38,
             "yellow": 125
         },
         {
@@ -115,8 +115,8 @@
             "illuminance": 400,
             "temperature": 4500,
             "red": 135,
-            "green": 40,
-            "blue": 40,
+            "green": 45,
+            "blue": 45,
             "yellow": 120
         },
         {
@@ -124,8 +124,8 @@
             "illuminance": 400,
             "temperature": 5000,
             "red": 135,
-            "green": 45,
-            "blue": 45,
+            "green": 49,
+            "blue": 49,
             "yellow": 120
         },
         {
@@ -133,8 +133,8 @@
             "illuminance": 400,
             "temperature": 5500,
             "red": 120,
-            "green": 47,
-            "blue": 47,
+            "green": 49,
+            "blue": 49,
             "yellow": 120
         },
         {
@@ -142,8 +142,8 @@
             "illuminance": 400,
             "temperature": 6000,
             "red": 120,
-            "green": 50,
-            "blue": 50,
+            "green": 53,
+            "blue": 53,
             "yellow": 120
         }
     ],
@@ -152,73 +152,73 @@
             "comment": "500 lx，2700 K",
             "illuminance": 500,
             "temperature": 2700,
-            "red": 250,
-            "green": 42,
-            "blue": 42,
-            "yellow": 130
+            "red": 200,
+            "green": 27,
+            "blue": 27,
+            "yellow": 145
         },
         {
             "comment": "500 lx，3000 K",
             "illuminance": 500,
             "temperature": 3000,
-            "red": 225,
-            "green": 43,
-            "blue": 43,
-            "yellow": 130
+            "red": 200,
+            "green": 35,
+            "blue": 35,
+            "yellow": 150
         },
         {
             "comment": "500 lx，3500 K",
             "illuminance": 500,
             "temperature": 3500,
             "red": 200,
-            "green": 45,
-            "blue": 45,
+            "green": 48,
+            "blue": 48,
             "yellow": 140
         },
         {
             "comment": "500 lx，4000 K",
             "illuminance": 500,
             "temperature": 4000,
-            "red": 220,
-            "green": 50,
-            "blue": 50,
-            "yellow": 130
+            "red": 200,
+            "green": 56,
+            "blue": 56,
+            "yellow": 140
         },
         {
             "comment": "500 lx，4500 K",
             "illuminance": 500,
             "temperature": 4500,
-            "red": 210,
-            "green": 60,
-            "blue": 60,
-            "yellow": 120
+            "red": 200,
+            "green": 63,
+            "blue": 63,
+            "yellow": 140
         },
         {
             "comment": "500 lx，5000 K",
             "illuminance": 500,
             "temperature": 5000,
-            "red": 210,
-            "green": 65,
-            "blue": 65,
-            "yellow": 120
+            "red": 200,
+            "green": 68,
+            "blue": 68,
+            "yellow": 140
         },
         {
             "comment": "500 lx，5500 K",
             "illuminance": 500,
             "temperature": 5500,
-            "red": 210,
-            "green": 70,
-            "blue": 70,
-            "yellow": 120
+            "red": 200,
+            "green": 74,
+            "blue": 74,
+            "yellow": 140
         },
         {
             "comment": "500 lx，6000 K",
             "illuminance": 500,
             "temperature": 6000,
-            "red": 202,
-            "green": 71,
-            "blue": 71,
-            "yellow": 120
+            "red": 190,
+            "green": 74,
+            "blue": 74,
+            "yellow": 140
         }
     ],
     "3": [
@@ -226,73 +226,73 @@
             "comment": "600 lx，2700 K",
             "illuminance": 600,
             "temperature": 2700,
-            "red": 310,
-            "green": 57,
-            "blue": 57,
-            "yellow": 145
+            "red": 225,
+            "green": 25,
+            "blue": 25,
+            "yellow": 200
         },
         {
             "comment": "600 lx，3000 K",
             "illuminance": 600,
             "temperature": 3000,
-            "red": 300,
-            "green": 60,
-            "blue": 60,
-            "yellow": 150
+            "red": 225,
+            "green": 35,
+            "blue": 35,
+            "yellow": 200
         },
         {
             "comment": "600 lx，3500 K",
             "illuminance": 600,
             "temperature": 3500,
-            "red": 275,
-            "green": 65,
-            "blue": 65,
-            "yellow": 155
+            "red": 225,
+            "green": 51,
+            "blue": 51,
+            "yellow": 200
         },
         {
             "comment": "600 lx，4000 K",
             "illuminance": 600,
             "temperature": 4000,
-            "red": 240,
+            "red": 225,
             "green": 65,
             "blue": 65,
-            "yellow": 160
+            "yellow": 170
         },
         {
             "comment": "600 lx，4500 K",
             "illuminance": 600,
             "temperature": 4500,
-            "red": 245,
+            "red": 225,
             "green": 72,
             "blue": 72,
-            "yellow": 155
+            "yellow": 170
         },
         {
             "comment": "600 lx，5000 K",
             "illuminance": 600,
             "temperature": 5000,
-            "red": 250,
-            "green": 80,
-            "blue": 80,
-            "yellow": 150
+            "red": 220,
+            "green": 77,
+            "blue": 77,
+            "yellow": 175
         },
         {
             "comment": "600 lx，5500 K",
             "illuminance": 600,
             "temperature": 5500,
-            "red": 250,
-            "green": 85,
-            "blue": 85,
-            "yellow": 150
+            "red": 220,
+            "green": 82,
+            "blue": 82,
+            "yellow": 170
         },
         {
             "comment": "600 lx，6000 K",
             "illuminance": 600,
             "temperature": 6000,
-            "red": 245,
-            "green": 90,
-            "blue": 90,
-            "yellow": 140
+            "red": 220,
+            "green": 86,
+            "blue": 86,
+            "yellow": 160
         }
     ],
     "4": [
@@ -300,73 +300,73 @@
             "comment": "700 lx，2700 K",
             "illuminance": 700,
             "temperature": 2700,
-            "red": 220,
-            "green": 6,
-            "blue": 6,
-            "yellow": 250
+            "red": 280,
+            "green": 30,
+            "blue": 30,
+            "yellow": 240
         },
         {
             "comment": "700 lx，3000 K",
             "illuminance": 700,
             "temperature": 3000,
-            "red": 210,
-            "green": 20,
-            "blue": 20,
-            "yellow": 245
+            "red": 280,
+            "green": 45,
+            "blue": 45,
+            "yellow": 235
         },
         {
             "comment": "700 lx，3500 K",
             "illuminance": 700,
             "temperature": 3500,
-            "red": 210,
-            "green": 41,
-            "blue": 41,
-            "yellow": 230
+            "red": 270,
+            "green": 60,
+            "blue": 60,
+            "yellow": 220
         },
         {
             "comment": "700 lx，4000 K",
             "illuminance": 700,
             "temperature": 4000,
-            "red": 210,
-            "green": 65,
-            "blue": 65,
+            "red": 270,
+            "green": 74,
+            "blue": 74,
             "yellow": 210
         },
         {
             "comment": "700 lx，4500 K",
             "illuminance": 700,
             "temperature": 4500,
-            "red": 100,
-            "green": 41,
-            "blue": 41,
-            "yellow": 260
+            "red": 270,
+            "green": 85,
+            "blue": 85,
+            "yellow": 200
         },
         {
             "comment": "700 lx，5000 K",
             "illuminance": 700,
             "temperature": 5000,
-            "red": 190,
-            "green": 70,
-            "blue": 70,
-            "yellow": 220
+            "red": 270,
+            "green": 93,
+            "blue": 93,
+            "yellow": 200
         },
         {
             "comment": "700 lx，5500 K",
             "illuminance": 700,
             "temperature": 5500,
-            "red": 170,
-            "green": 75,
-            "blue": 75,
-            "yellow": 220
+            "red": 270,
+            "green": 100,
+            "blue": 100,
+            "yellow": 190
         },
         {
             "comment": "700 lx，6000 K",
             "illuminance": 700,
             "temperature": 6000,
-            "red": 165,
-            "green": 82,
-            "blue": 76,
-            "yellow": 210
+            "red": 270,
+            "green": 105,
+            "blue": 105,
+            "yellow": 190
         }
     ]
 }
