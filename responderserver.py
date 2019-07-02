@@ -22,7 +22,7 @@ myport = 8000
 
 class server:
     # 処理をするまでの間隔(second)
-    interval = 10
+    interval = 60
     # RRIと取得時間
     term_time,term_rri = [],[]
     pre_time, now_time = dt.now().strftime("%H:%M:%S"), 0
@@ -35,10 +35,12 @@ class server:
     now_ill_index,now_temp_index=0,0
     pre_ill_index,pre_temp_index=0,0
     ill_index,temp_index=0,0
+    state=""
     # 実際の照度・色温度
     illuminance,temperature=0,0
     # CVRRの算出回数と最大回数（終了条件）
     update_count=0
+    break_point=10
     loop_max=10
 
     # 出力file
@@ -46,9 +48,12 @@ class server:
     cvrr_file = "CVRR_Log.csv"
     lighting_file = "Lighting_Log.csv"
 
+    # 300lx,2700Kで調光
     lighting_signal,illuminance,temperature=getSignal(ill_index, temp_index)
-    # 調光
     lighting_by_signal(lighting_signal)
+
+    pre_time=dt.now().strftime("%H:%M:%S")
+    print("interval:",interval)
 
     def on_get(self, req, res):
         ''' GET '''
@@ -67,31 +72,32 @@ class server:
             # CVRRが以前のものよりも上昇している場合
             if self.now_cvrr>server.pre_cvrr:
                 ''' Randomに調光 '''
-                fig = Figlet(font="slant")
-                msg = fig.renderText("UP CVRR")
+                msg = Figlet(font="slant").renderText("UP CVRR")
                 print(msg)
                 print("照明環境を変更します")
-                # 調光のindexを残す
-                self.ill_index, self.temp_index = randomChange(server.ill_index, server.temp_index)
+                server.state="up"
+                # server.ill_index,server.temp_index = self.ill_index,self.temp_index
+                server.pre_ill_index, server.pre_temp_index = server.now_ill_index, server.now_temp_index
+                server.now_ill_index, server.now_temp_index = randomChange(server.pre_ill_index, server.pre_temp_index)
                 
             # CVRRが以前のものよりも下降している場合
             else:
                 ''' 前の照明環境に戻す '''
-                fig = Figlet(font="slant")
-                msg = fig.renderText("DOWN CVRR")
+                msg = Figlet(font="slant").renderText("DOWN CVRR")
                 print(msg)
                 print("前の照明環境に戻します")
-                print("server_index:("+str(server.ill_index)+","+str(server.temp_index)+")")
-                # server.ill_index,server.temp_index = self.ill_index,self.temp_index
-                self.ill_index, self.temp_index = server.ill_index, server.temp_index
-            print("===")
-            print("server_index:("+str(server.ill_index)+","+str(server.temp_index)+")")
-            print("self_index:("+str(self.ill_index)+","+str(self.temp_index)+")")
-            print("===")
-
-            server.ill_index,server.temp_index = self.ill_index,self.temp_index            
+                server.state="down"
+                # print("server_index:("+str(server.ill_index)+","+str(server.temp_index)+")")
+                self.now_ill_index, self.now_temp_index = server.pre_ill_index, server.pre_temp_index
+                server.pre_ill_index, server.pre_temp_index = server.now_ill_index, server.now_temp_index
+                server.now_ill_index, server.now_temp_index = self.now_ill_index, self.now_temp_index
+            if server.update_count==server.break_point:
+                ''' ここから休憩(task2breakの実験でのみ) '''
+                server.pre_ill_index, server.pre_temp_index =0,0
+                server.now_ill_index, server.now_temp_index =0,0
+            # server.ill_index,server.temp_index = self.ill_index,self.temp_index            
             # 調光信号値，実際の照度，色温度の取得
-            self.lighting_signal,server.illuminance,server.temperature=getSignal(self.ill_index, self.temp_index)
+            self.lighting_signal,server.illuminance,server.temperature = getSignal(server.now_ill_index, server.now_temp_index)
             # 調光
             lighting_by_signal(self.lighting_signal)
             
@@ -99,7 +105,6 @@ class server:
         async def update():
             ''' 経過時間の判定とその場合の処理 '''
             if(getTime(server.now_time)-getTime(server.pre_time) >= server.interval):
-                print("--- Server Update ---")
                 # updateの回数を更新
                 server.update_count+=1
                 
@@ -117,7 +122,7 @@ class server:
                 # output csv
                 outputRRI(server.term_time,server.term_rri,server.name+"_"+server.rri_file)
                 outputCVRR(server.update_count,server.now_time,server.now_cvrr,server.name+"_"+server.cvrr_file)
-                outputLighting(server.update_count,server.now_time,server.illuminance,server.temperature,server.name+"_"+server.lighting_file)
+                outputLighting(server.update_count,server.now_time,server.illuminance,server.temperature,server.now_cvrr,server.state,server.name+"_"+server.lighting_file)
                 
                 # termに依存する変数を初期化
                 server.term_time.clear()

@@ -19,5 +19,8 @@ def outputRRI(time,rri,filename):
 
 def outputCVRR(count,time,cvrr,filename):
     ''' CVRRをcsvに出力 '''
-    output_text = str(count) + "," +str(time) + "," + str(cvrr) + '\n'
+    output_text=""
+    if count==0:
+        output_text += "" + "," + "time" + "," + "cvrr" + '\n'
+    output_text += str(count) + "," +str(time) + "," + str(cvrr) + '\n'
     outputFile(output_text, filename)

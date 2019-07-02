@@ -19,6 +19,12 @@ def lighting_by_signal(signal):
     s.sendAll(signal)
     s.close()
 
+def lighting_to_standard():
+    s = LedSocket()
+    s.connect()
+    s.sendAll([270,74,74,210])
+    s.close()
+
 def testSend(red,green,blue,yellow):
     ''' 引数の信号値で1回調光（調光テスト用で本番環境では未使用） '''
     s = LedSocket()
@@ -64,9 +70,12 @@ def downTemp(curentTmep):
         print("色温度はこれ以上小さくなりません")
     return nextTemp
 
-def outputLighting(count,time,ill,temp,filename):
+def outputLighting(count,time,ill,temp,cvrr,state,filename):
     ''' 調光のログを書く '''
-    output_text = str(count) + "," + str(time) + "," + str(ill) + "," + str(temp) + '\n'
+    output_text=""
+    if count==0:
+        output_text += "" + ","+ "time" + "," + "illuminance"+ "," + "temperature" + "," + "cvrr"+ "," + "state" + '\n'
+    output_text += str(count) + "," + str(time) + "," + str(ill) + "," + str(temp) +"," + str(cvrr) + "," + state +'\n'
     outputFile(output_text, filename)
 
 def getSignal(ill_index,temp_index):
